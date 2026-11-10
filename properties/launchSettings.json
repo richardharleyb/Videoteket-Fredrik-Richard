@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "LAB1": {
+      "commandName": "Project",
+      "workingDirectory": "."
+    }
+  }
+}
