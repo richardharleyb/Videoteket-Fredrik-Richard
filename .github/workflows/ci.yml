@@ -23,10 +23,12 @@ jobs:
       run: dotnet restore
 
     - name: Install CSharpier
-      run: dotnet tool install -g csharpier
+      run: |
+        dotnet tool install -g csharpier
+        echo "$HOME/.dotnet/tools" >> $GITHUB_PATH
 
     - name: Check code formatting with CSharpier
-      run: dotnet csharpier --check .
+      run: dotnet csharpier check .
 
     - name: Build with 0 warnings
       run: dotnet build --no-restore --configuration Release -warnaserror
