@@ -22,8 +22,11 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore
 
-    - name: Check code formatting
-      run: dotnet format --verify-no-changes
+    - name: Install CSharpier
+      run: dotnet tool install -g csharpier
+
+    - name: Check code formatting with CSharpier
+      run: dotnet csharpier --check .
 
     - name: Build with 0 warnings
       run: dotnet build --no-restore --configuration Release -warnaserror
