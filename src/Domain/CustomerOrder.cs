@@ -1,8 +1,10 @@
 namespace Videoteket.src.Domain;
 
-internal class CustomerOrder
+internal class RentalItem
 {
-  public int CustomerId { get; private set; }
-  public DateTime RentedAt { get; private set; }
-  public DateTime RentedDue { get; private set; }
+  public int RentalId { get; private set; }
+  public DateTime ExpectedReturn { get; private set; }
+  public DateTime ReturnedAt { get; private set; }
+
+  public int LateFee { get; private set; }
 }
