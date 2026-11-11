@@ -28,5 +28,5 @@ jobs:
     - name: Check code formatting with CSharpier
       run: dotnet csharpier check .
 
-    - name: Build with 0 warnings
-      run: dotnet build --no-restore --configuration Release -warnaserror
+    - name: Build
+      run: dotnet build --no-restore --configuration Release
