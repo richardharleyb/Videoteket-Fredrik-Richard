@@ -6,5 +6,5 @@ internal class RentalItem
   public DateTime ExpectedReturn { get; private set; }
   public DateTime ReturnedAt { get; private set; }
 
-  public int LateFee { get; private set; }
+  public decimal LateFee { get; private set; }
 }
