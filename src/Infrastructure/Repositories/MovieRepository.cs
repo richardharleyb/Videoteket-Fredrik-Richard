@@ -13,7 +13,7 @@ internal class MovieRepository : BaseRepository, IMovieRepository
 
     List<Movie> movies =
     [
-      .. connection.Query<Movie>("SELECT Id, Title, ReleaseDate, IsNew FROM Movie"),
+      .. connection.Query<Movie>("SELECT Id, Title, ReleaseDate, IsNew FROM Movie;"),
     ];
 
     return movies;
