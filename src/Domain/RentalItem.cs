@@ -1,5 +1,3 @@
-namespace Videoteket.src.Domain;
-
 internal class RentalItem
 {
   public int RentalId { get; private set; }
