@@ -41,7 +41,7 @@ internal class CustomerMenu : IMenuOption
           try
           {
             _customerRepository.AddCustomer(customer);
-            Console.WriteLine("The new customer has been saved successfully");
+            Console.WriteLine("New customer added.");
           }
           catch (Exception)
           {
