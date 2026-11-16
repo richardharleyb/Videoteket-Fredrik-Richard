@@ -1,3 +1,4 @@
+using Videoteket.src.Domain;
 using Videoteket.src.Domain.Interfaces;
 using Videoteket.src.Infrastructure.Repositories;
 
@@ -36,6 +37,19 @@ internal class CustomerMenu : IMenuOption
           string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
           string? email = ConsoleInputReader.ReadOptionalText("Email: ");
           string address = ConsoleInputReader.ReadNonEmptyText("Address: ");
+          Customer customer = new Customer(name, phoneNumber, email, address);
+          try
+          {
+            _customerRepository.AddCustomer(customer);
+            Console.WriteLine("The new customer has been saved successfully");
+          }
+          catch (Exception)
+          {
+            Console.WriteLine("Error:\nNo customer was saved. \nPlease try again later.");
+          }
+
+          ConsoleInputReader.WaitForAnyKey();
+
           break;
         case 3:
           break;
