@@ -1,7 +1,12 @@
+using Videoteket.src.Domain.Interfaces;
+using Videoteket.src.Infrastructure.Repositories;
+
 namespace Videoteket.src.UI;
 
 internal class CustomerMenu : IMenuOption
 {
+  private readonly ICustomerRepository _customerRepository = new CustomerRepository();
+
   public void Run()
   {
     bool running = true;
@@ -27,6 +32,7 @@ internal class CustomerMenu : IMenuOption
         case 1:
           break;
         case 2:
+
           break;
         case 3:
           break;
