@@ -33,23 +33,7 @@ internal class CustomerMenu : IMenuOption
         case 1:
           break;
         case 2:
-          string name = ConsoleInputReader.ReadNonEmptyText("Name: ");
-          string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
-          string? email = ConsoleInputReader.ReadOptionalText("Email: ");
-          string address = ConsoleInputReader.ReadNonEmptyText("Address: ");
-          Customer customer = new Customer(name, phoneNumber, email, address);
-          try
-          {
-            _customerRepository.AddCustomer(customer);
-            Console.WriteLine("New customer added.");
-          }
-          catch (Exception)
-          {
-            Console.WriteLine("Error:\nNo customer was saved. \nPlease try again later.");
-          }
-
-          ConsoleInputReader.WaitForAnyKey();
-
+          AddNewCustomer();
           break;
         case 3:
           break;
@@ -64,6 +48,26 @@ internal class CustomerMenu : IMenuOption
           break;
       }
     }
+  }
+
+  private void AddNewCustomer()
+  {
+    string name = ConsoleInputReader.ReadNonEmptyText("Name: ");
+    string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
+    string? email = ConsoleInputReader.ReadOptionalText("Email: ");
+    string address = ConsoleInputReader.ReadNonEmptyText("Address: ");
+    Customer customer = new Customer(name, phoneNumber, email, address);
+    try
+    {
+      _customerRepository.AddCustomer(customer);
+      Console.WriteLine("New customer added.");
+    }
+    catch (Exception)
+    {
+      Console.WriteLine("Error:\nNo customer was saved. \nPlease try again later.");
+    }
+
+    ConsoleInputReader.WaitForAnyKey();
   }
 
   public override string ToString()
