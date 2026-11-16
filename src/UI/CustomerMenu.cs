@@ -34,7 +34,7 @@ internal class CustomerMenu : IMenuOption
         case 2:
           string name = ConsoleInputReader.ReadNonEmptyText("Name: ");
           string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
-          //  string email = ConsoleInputReader.ReadNonEmptyText("Email: ");
+          string? email = ConsoleInputReader.ReadOptionalText("Email: ");
           string address = ConsoleInputReader.ReadNonEmptyText("Address: ");
           break;
         case 3:
