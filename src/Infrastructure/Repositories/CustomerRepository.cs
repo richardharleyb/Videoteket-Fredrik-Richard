@@ -19,4 +19,17 @@ internal class CustomerRepository : BaseRepository, ICustomerRepository
       customer
     );
   }
+
+  public void DeleteCustomer(Customer customer)
+  {
+    using IDbConnection connection = CreateConnection();
+
+    connection.Execute(
+      """
+      DELETE FROM Customer
+      WHERE Name= @Phonenumber;
+      """,
+      customer
+    );
+  }
 }
