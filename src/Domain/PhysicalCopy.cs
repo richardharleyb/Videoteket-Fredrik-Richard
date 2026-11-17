@@ -1,6 +1,6 @@
 namespace Videoteket.src.Domain;
 
-internal class PhysicalCopy
+internal class PhysicalCopy : Entity
 {
   public int MovieId { get; private set; }
   public string Barcode { get; private set; }
