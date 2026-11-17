@@ -22,6 +22,19 @@ internal class CustomerServices
     }
   }
 
+  public List<Customer>? SearchCustomers(string name)
+  {
+    try
+    {
+      List<Customer> customers = _customerRepository.SearchCustomers(name);
+      return customers;
+    }
+    catch
+    {
+      return null;
+    }
+  }
+
   public bool DeleteCustomer(string phoneNumber)
   {
     try
