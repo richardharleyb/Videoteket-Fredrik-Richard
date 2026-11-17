@@ -77,7 +77,7 @@ internal class CustomerMenu : IMenuOption
     List<Customer>? customersFound = _customerServices.SearchCustomers(name);
     if (customersFound == null)
     {
-      Console.WriteLine("Error: Unable to connect whith database");
+      Console.WriteLine("Error: Unable to connect with database");
     }
     else if (customersFound.Count == 0)
     {
