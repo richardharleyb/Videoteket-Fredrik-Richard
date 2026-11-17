@@ -1,8 +1,12 @@
 namespace Videoteket.src.Domain;
 
-internal class PhysicalCopy : Entity
+internal class PhysicalCopy(string barcode, bool isActive, int movieId) : Entity
 {
-  public int MovieId { get; private set; }
-  public string Barcode { get; private set; }
-  public bool IsActive { get; private set; }
+  public string Barcode { get; private set; } =
+    string.IsNullOrWhiteSpace(barcode)
+      ? throw new ArgumentException("Barcode cannot be empty")
+      : barcode;
+  public bool IsActive { get; private set; } = isActive;
+  public int MovieId { get; private set; } =
+    movieId <= 0 ? throw new ArgumentException("MovieId must be greater than zero") : movieId;
 }

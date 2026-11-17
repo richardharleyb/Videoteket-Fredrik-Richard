@@ -7,6 +7,19 @@ namespace Videoteket.src.Infrastructure.Repositories;
 
 internal class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
 {
+  public void AddPhysicalCopy(PhysicalCopy physicalCopy)
+  {
+    using IDbConnection connection = CreateConnection();
+
+    connection.Execute(
+      """
+      INSERT INTO PhysicalCopy(Barcode, IsActive, MovieId)
+      VALUES(@Barcode, IsActive, MovieId)
+      """,
+      physicalCopy
+    );
+  }
+
   //Kollar vad som finns på "Lager", det som inte är uthyrt
   public List<AvailableCopyDto> FetchAvailableCopies()
   {
