@@ -21,4 +21,17 @@ internal class CustomerServices
       return false;
     }
   }
+
+  public bool DeleteCustomer(string phoneNumber)
+  {
+    try
+    {
+      _customerRepository.DeleteCustomer(phoneNumber);
+      return true;
+    }
+    catch (Exception)
+    {
+      return false;
+    }
+  }
 }
