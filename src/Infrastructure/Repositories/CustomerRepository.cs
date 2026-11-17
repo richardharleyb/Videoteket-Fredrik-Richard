@@ -1,4 +1,3 @@
-using System.ComponentModel.Design;
 using System.Data;
 using Dapper;
 using Videoteket.src.Domain;
