@@ -5,7 +5,7 @@ namespace Videoteket.src.UI;
 
 internal class CustomerMenu : IMenuOption
 {
-  private readonly CustomerServices _customerServices = new CustomerServices();
+  private readonly CustomerService _customerServices = new CustomerService();
 
   public void Run()
   {

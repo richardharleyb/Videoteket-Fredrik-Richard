@@ -4,7 +4,7 @@ using Videoteket.src.Infrastructure.Repositories;
 
 namespace Videoteket.src.Services;
 
-internal class CustomerServices
+internal class CustomerService
 {
   private readonly ICustomerRepository _customerRepository = new CustomerRepository();
 
