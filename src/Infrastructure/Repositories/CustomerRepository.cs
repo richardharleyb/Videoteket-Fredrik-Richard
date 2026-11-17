@@ -1,3 +1,4 @@
+using System.ComponentModel.Design;
 using System.Data;
 using Dapper;
 using Videoteket.src.Domain;
@@ -31,5 +32,20 @@ internal class CustomerRepository : BaseRepository, ICustomerRepository
       """,
       customer
     );
+  }
+
+  public List<Customer> SearchCustomers(string name)
+  {
+    using IDbConnection connection = CreateConnection();
+
+    List<Customer> customers =
+    [
+      .. connection.Query<Customer>(
+        "SELECT Name, Phonenumber, Email, Address FROM Customer WHERE Customer.Name LIKE @name;",
+        new { name = $"{name}%" }
+      ),
+    ];
+
+    return customers;
   }
 }

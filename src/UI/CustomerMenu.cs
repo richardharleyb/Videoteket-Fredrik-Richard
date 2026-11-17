@@ -1,3 +1,4 @@
+using Videoteket.src.Domain;
 using Videoteket.src.Services;
 
 namespace Videoteket.src.UI;
@@ -14,7 +15,7 @@ internal class CustomerMenu : IMenuOption
     {
       Console.Clear();
       Console.WriteLine("CUSTOMER MENU:");
-      Console.WriteLine("1: View Customers");
+      Console.WriteLine("1: Search Customers");
       Console.WriteLine("2: Add Customer");
       Console.WriteLine("3: Edit Customer");
       Console.WriteLine("4: Delete Customer");
@@ -29,6 +30,7 @@ internal class CustomerMenu : IMenuOption
       switch (input)
       {
         case 1:
+          SearchCustomers();
           break;
         case 2:
           AddNewCustomer();
@@ -66,6 +68,30 @@ internal class CustomerMenu : IMenuOption
       Console.WriteLine("Error:\nNo customer was saved.\nPlease try again later.");
     }
 
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
+  private void SearchCustomers()
+  {
+    string name = ConsoleInputReader.ReadNonEmptyText("Name: ");
+    List<Customer>? customersFound = _customerServices.SearchCustomers(name);
+    if (customersFound == null)
+    {
+      Console.WriteLine("Error: Unable to connect whith database");
+    }
+    else if (customersFound.Count == 0)
+    {
+      Console.WriteLine("No customer found");
+    }
+    else
+    {
+      for (int i = 0; i < customersFound.Count; i++)
+      {
+        Console.WriteLine(
+          $"{customersFound[i].Name} - {customersFound[i].PhoneNumber} - {customersFound[i].Email} - {customersFound[i].Address}"
+        );
+      }
+    }
     ConsoleInputReader.WaitForAnyKey();
   }
 
