@@ -93,6 +93,9 @@ internal class CustomerMenu : IMenuOption
         );
       }
     }
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
   private void DeleteCustomer()
   {
     string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
