@@ -1,12 +1,10 @@
-using Videoteket.src.Domain;
-using Videoteket.src.Domain.Interfaces;
-using Videoteket.src.Infrastructure.Repositories;
+using Videoteket.src.Services;
 
 namespace Videoteket.src.UI;
 
 internal class CustomerMenu : IMenuOption
 {
-  private readonly ICustomerRepository _customerRepository = new CustomerRepository();
+  private readonly CustomerServices _customerServices = new CustomerServices();
 
   public void Run()
   {
@@ -56,15 +54,16 @@ internal class CustomerMenu : IMenuOption
     string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
     string? email = ConsoleInputReader.ReadOptionalText("Email: ");
     string address = ConsoleInputReader.ReadNonEmptyText("Address: ");
-    Customer customer = new Customer(name, phoneNumber, email, address);
-    try
+
+    bool saved = _customerServices.AddCustomer(name, phoneNumber, email, address);
+
+    if (saved)
     {
-      _customerRepository.AddCustomer(customer);
       Console.WriteLine("New customer added.");
     }
-    catch (Exception)
+    else
     {
-      Console.WriteLine("Error:\nNo customer was saved. \nPlease try again later.");
+      Console.WriteLine("Error:\nNo customer was saved.\nPlease try again later.");
     }
 
     ConsoleInputReader.WaitForAnyKey();
