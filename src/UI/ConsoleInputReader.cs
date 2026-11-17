@@ -65,6 +65,16 @@ internal static class ConsoleInputReader
     }
   }
 
+  public static string? ReadOptionalText(string prompt)
+  {
+    string text = ReadLine(prompt);
+    if (text != "")
+    {
+      return text;
+    }
+    return null;
+  }
+
   public static void WaitForAnyKey()
   {
     Console.WriteLine("Press any key to continue...");
