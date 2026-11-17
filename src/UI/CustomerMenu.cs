@@ -38,6 +38,7 @@ internal class CustomerMenu : IMenuOption
         case 3:
           break;
         case 4:
+          DeleteCustomer();
           break;
         case 5:
           running = false;
@@ -92,6 +93,20 @@ internal class CustomerMenu : IMenuOption
         );
       }
     }
+  private void DeleteCustomer()
+  {
+    string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
+    bool removed = _customerServices.DeleteCustomer(phoneNumber);
+
+    if (removed)
+    {
+      Console.WriteLine("Customer removed");
+    }
+    else
+    {
+      Console.WriteLine("Error:\nNo customer was removed.\nPlease try again later.");
+    }
+
     ConsoleInputReader.WaitForAnyKey();
   }
 
