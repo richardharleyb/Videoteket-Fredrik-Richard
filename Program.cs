@@ -8,7 +8,7 @@ internal static class Program
   internal static void Main(string[] args)
   {
     DatabaseSeeder.Seed();
-    CustomerMenu menu = new CustomerMenu();
-    menu.Run();
+    MainMenu mainMenu = new MainMenu();
+    mainMenu.Run();
   }
 }
