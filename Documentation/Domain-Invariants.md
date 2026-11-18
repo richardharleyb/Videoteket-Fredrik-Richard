@@ -6,3 +6,5 @@ uthyrningsdatumet (ReturnedAt >= RentedAt).
 redan är återlämnad kastar den InvalidOperationException).
 Du kan inte återlämna en kopia som inte är uthyrd
 IsActive=false får inte hyras ut
+Återlämningsdatum måste vara null och inte vara satt om inte ett
+uthyrningsdatum finns?
