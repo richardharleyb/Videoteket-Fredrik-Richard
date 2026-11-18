@@ -5,7 +5,7 @@ namespace Videoteket.src.UI;
 
 internal class CustomerMenu : IMenuOption
 {
-  private readonly CustomerServices _customerServices = new CustomerServices();
+  private readonly CustomerService _customerService = new CustomerService();
 
   public void Run()
   {
@@ -58,7 +58,7 @@ internal class CustomerMenu : IMenuOption
     string? email = ConsoleInputReader.ReadOptionalText("Email: ");
     string address = ConsoleInputReader.ReadNonEmptyText("Address: ");
 
-    bool saved = _customerServices.AddCustomer(name, phoneNumber, email, address);
+    bool saved = _customerService.AddCustomer(name, phoneNumber, email, address);
 
     if (saved)
     {
@@ -75,7 +75,7 @@ internal class CustomerMenu : IMenuOption
   private void SearchCustomers()
   {
     string name = ConsoleInputReader.ReadNonEmptyText("Name: ");
-    List<Customer>? customersFound = _customerServices.SearchCustomers(name);
+    List<Customer>? customersFound = _customerService.SearchCustomers(name);
     if (customersFound == null)
     {
       Console.WriteLine("Error: Unable to connect with database");
@@ -99,7 +99,7 @@ internal class CustomerMenu : IMenuOption
   private void DeleteCustomer()
   {
     string phoneNumber = ConsoleInputReader.ReadNonEmptyText("Phonenumber: ");
-    bool removed = _customerServices.DeleteCustomer(phoneNumber);
+    bool removed = _customerService.DeleteCustomer(phoneNumber);
 
     if (removed)
     {
