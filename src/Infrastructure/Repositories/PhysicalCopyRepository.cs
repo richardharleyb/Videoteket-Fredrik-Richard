@@ -14,7 +14,7 @@ internal class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
     connection.Execute(
       """
       INSERT INTO PhysicalCopy(Barcode, IsActive, MovieId)
-      VALUES(@Barcode, IsActive, MovieId)
+      VALUES(@Barcode, @IsActive, @MovieId)
       """,
       physicalCopy
     );
