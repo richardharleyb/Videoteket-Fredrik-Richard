@@ -1,11 +1,21 @@
+using Videoteket.src.Domain;
 using Videoteket.src.Domain.Interfaces;
 using Videoteket.src.Infrastructure.Repositories;
 
 namespace Videoteket.src.Services;
 
-internal class RentalService
+public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
 {
+  private readonly IPhysicalCopyRepository _physicalCopyRepository = physicalCopyRepository;
   private readonly IRentalRepository _rentalRepository = new RentalRepository();
+
+  public RentalService() : this(new PhysicalCopyRepository()) { }
+
+  public void Rent(string barcode)
+  {
+    if (_physicalCopyRepository.IsCopyRented(barcode))
+      throw new InvalidOperationException($"{barcode} is already rented");
+  }
 
   public bool CreateRental(int customerId, List<int> physicalCopyIds)
   {

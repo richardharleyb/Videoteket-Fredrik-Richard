@@ -3,7 +3,7 @@ using MySql.Data.MySqlClient;
 
 namespace Videoteket.src.Infrastructure.Repositories;
 
-internal abstract class BaseRepository
+public abstract class BaseRepository
 {
   protected static MySqlConnection CreateConnection()
   {
