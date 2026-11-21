@@ -78,6 +78,16 @@ internal static class DatabaseSeeder
               FOREIGN KEY (PhysicalCopyId) REFERENCES PhysicalCopy(Id)
             );
 
+             CREATE TRIGGER SetRentalItemDefaults
+             BEFORE INSERT ON RentalItem  FOR EACH ROW
+             SET NEW.ExpectedReturn = DATE_ADD(NOW(), INTERVAL 1 DAY),  
+             NEW.Price = (
+             SELECT IF(Movie.IsNew, 49, 29)                     
+             FROM PhysicalCopy
+             JOIN Movie ON Movie.Id = PhysicalCopy.MovieId
+             WHERE PhysicalCopy.Id = NEW.PhysicalCopyId          
+            );
+
             INSERT INTO Movie (Id, Title, ReleaseDate, IsNew) VALUES
               -- Stora blockbusters (3-6 exemplar)
               (1, 'Titanic', '1997-12-19', TRUE),
