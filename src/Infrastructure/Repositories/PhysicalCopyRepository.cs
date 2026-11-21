@@ -5,7 +5,7 @@ using Videoteket.src.Domain.Interfaces;
 
 namespace Videoteket.src.Infrastructure.Repositories;
 
-internal class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
+public class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
 {
   public void AddPhysicalCopy(PhysicalCopy physicalCopy)
   {

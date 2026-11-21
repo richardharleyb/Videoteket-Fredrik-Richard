@@ -1,6 +1,6 @@
 namespace Videoteket.src.Domain.Interfaces;
 
-internal interface IPhysicalCopyRepository
+public interface IPhysicalCopyRepository
 {
   public void AddPhysicalCopy(PhysicalCopy physicalCopy);
 
