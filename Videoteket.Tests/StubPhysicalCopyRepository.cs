@@ -3,14 +3,17 @@ using Videoteket.src.Domain.Interfaces;
 
 namespace Videoteket.Tests;
 
-public class StubPhysicalCopyRepository(List<AvailableCopyDto> availableCopies)
-  : IPhysicalCopyRepository
+public class StubPhysicalCopyRepository(
+  List<AvailableCopyDto> availableCopies,
+  bool isRented = true
+) : IPhysicalCopyRepository
 {
+  private readonly bool _isRented = isRented;
   private readonly List<AvailableCopyDto> _availableCopies = availableCopies;
 
   public bool IsCopyRented(string barcode)
   {
-    return true;
+    return _isRented;
   }
 
   public void AddPhysicalCopy(PhysicalCopy physicalCopy) { }

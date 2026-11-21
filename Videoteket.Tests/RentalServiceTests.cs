@@ -10,7 +10,7 @@ public class RentalServiceTests
   public void A_Physical_Copy_Which_Is_Rented_Cannot_Be_Rented()
   {
     //Arrange
-    var repo = new StubPhysicalCopyRepository([]);
+    var repo = new StubPhysicalCopyRepository([], isRented: true);
     var sut = new RentalService(repo);
 
     //Act and Assert
