@@ -1,4 +1,6 @@
-﻿namespace Videoteket.Tests;
+﻿using Videoteket.src.Domain;
+
+namespace Videoteket.Tests;
 
 public class PhysicalCopyTests
 {
@@ -7,7 +9,10 @@ public class PhysicalCopyTests
   public void A_Physical_Copy_Which_Is_Rented_Cannot_Be_Rented()
   {
     //Arrange
-    //Act
-    //Assert
+    var copy = new PhysicalCopy(barcode: "VHS-EVIL-DEAD-2-01", isActive: true, movieId: 14);
+    copy.Rent();
+
+    //Act and Assert
+    Assert.Throws<InvalidOperationException>(() => copy.Rent());
   }
 }

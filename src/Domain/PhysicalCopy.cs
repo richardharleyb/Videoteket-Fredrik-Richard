@@ -1,6 +1,6 @@
 namespace Videoteket.src.Domain;
 
-internal class PhysicalCopy(string barcode, bool isActive, int movieId) : Entity
+public class PhysicalCopy(string barcode, bool isActive, int movieId) : Entity
 {
   public string Barcode { get; private set; } =
     string.IsNullOrWhiteSpace(barcode)
