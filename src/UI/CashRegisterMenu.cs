@@ -1,7 +1,13 @@
+using Videoteket.src.Services;
+
 namespace Videoteket.src.UI;
 
 internal class CashRegisterMenu : IMenuOption
 {
+  private readonly RentalService _rentalService = new RentalService(); // ReadOnly field that can be used and not changed
+  private readonly CustomerService _customerService = new CustomerService();
+  private readonly PhysicalCopyService _physicalCopyService = new PhysicalCopyService();
+
   public void Run()
   {
     bool running = true;
@@ -21,6 +27,7 @@ internal class CashRegisterMenu : IMenuOption
       switch (choice)
       {
         case 1:
+          CreateNewRental();
           break;
         case 2:
           break;
@@ -33,6 +40,11 @@ internal class CashRegisterMenu : IMenuOption
           break;
       }
     }
+  }
+
+  private void CreateNewRental()
+  {
+    //Metod
   }
 
   public override string ToString()
