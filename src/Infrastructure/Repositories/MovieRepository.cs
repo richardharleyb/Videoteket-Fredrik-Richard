@@ -7,6 +7,8 @@ namespace Videoteket.src.Infrastructure.Repositories;
 
 internal class MovieRepository : BaseRepository, IMovieRepository
 {
+  public void AddMovie() { }
+
   public List<Movie> FetchAllMovies()
   {
     using IDbConnection connection = CreateConnection();

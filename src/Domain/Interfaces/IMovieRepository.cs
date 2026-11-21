@@ -1,7 +1,8 @@
 namespace Videoteket.src.Domain.Interfaces
 {
-  internal interface IMovieRepository
+  public interface IMovieRepository
   {
+    public void AddMovie();
     public List<Movie> FetchAllMovies();
   }
 }
