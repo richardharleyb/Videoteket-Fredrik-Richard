@@ -1,5 +1,6 @@
 En kopia som är uthyrd kan inte hyras ut
 EN kopia som är uthyrd kan inte skickas till utgivaren
+En film kan inte läggas till två gånger
 Invariant 1: Återlämningsdatumet kan inte vara tidigare än
 uthyrningsdatumet (ReturnedAt >= RentedAt).
 • Invariant 2: En filmkopia kan inte återlämnas två gånger (om den
