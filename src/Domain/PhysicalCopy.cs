@@ -9,4 +9,6 @@ public class PhysicalCopy(string barcode, bool isActive, int movieId) : Entity
   public bool IsActive { get; private set; } = isActive;
   public int MovieId { get; private set; } =
     movieId <= 0 ? throw new ArgumentException("MovieId must be greater than zero") : movieId;
+
+  public void Rent() { }
 }
