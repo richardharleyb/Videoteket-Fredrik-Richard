@@ -183,6 +183,49 @@ internal static class DatabaseSeeder
             """
           );
 
+          connection.Execute(
+            """
+            DROP PROCEDURE IF EXISTS AddCustomer;
+            DROP PROCEDURE IF EXISTS AddPhysicalCopy;
+            DROP PROCEDURE IF EXISTS DeletePhysicalCopy;
+            """
+          );
+
+          connection.Execute(
+            """
+            CREATE PROCEDURE AddCustomer(
+              IN p_Name        VARCHAR(128),
+              IN p_PhoneNumber VARCHAR(128),
+              IN p_Email       VARCHAR(128),
+              IN p_Address     VARCHAR(128)
+            )
+            INSERT INTO Customer (Name, PhoneNumber, Email, Address)
+            VALUES (p_Name, p_PhoneNumber, p_Email, p_Address);
+            """
+          );
+
+          connection.Execute(
+            """
+            CREATE PROCEDURE AddPhysicalCopy(
+              IN p_Barcode  VARCHAR(128),
+              IN p_IsActive BOOL,
+              IN p_MovieId  INT
+            )
+            INSERT INTO PhysicalCopy (Barcode, IsActive, MovieId)
+            VALUES (p_Barcode, p_IsActive, p_MovieId);
+            """
+          );
+
+          connection.Execute(
+            """
+            CREATE PROCEDURE DeletePhysicalCopy(
+              IN p_Barcode VARCHAR(128)
+            )
+            DELETE FROM PhysicalCopy
+            WHERE Barcode = p_Barcode;
+            """
+          );
+
           tran.Commit();
         }
         catch
