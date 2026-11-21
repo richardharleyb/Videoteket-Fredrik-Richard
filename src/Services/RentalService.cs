@@ -13,5 +13,9 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
       throw new InvalidOperationException($"{barcode} is already rented");
   }
 
-  public void SetInactive(string barcode) { }
+  public void SetInactive(string barcode)
+  {
+    if (_physicalCopyRepository.IsCopyRented(barcode))
+      throw new InvalidOperationException($"{barcode} cannot be set to inactive when being rented");
+  }
 }
