@@ -19,7 +19,7 @@ public class RentalServiceTests
 
   //EN kopia som är uthyrd kan inte skickas till utgivaren
   [Fact]
-  public void A_Phycial_Copy_Which_Is_Rented_Cannot_Be_Set_To_Inactive()
+  public void A_Physical_Copy_Which_Is_Rented_Cannot_Be_Set_To_Inactive()
   {
     //Arrange
     var repo = new StubPhysicalCopyRepository([], isRented: true);
