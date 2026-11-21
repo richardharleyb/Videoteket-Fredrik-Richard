@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="Videoteket.csproj" />
+  <Project Path="Videoteket.Tests/Videoteket.Tests.csproj" />
+</Solution>

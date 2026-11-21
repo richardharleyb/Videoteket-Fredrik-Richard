@@ -5,8 +5,13 @@ using Videoteket.src.Domain.Interfaces;
 
 namespace Videoteket.src.Infrastructure.Repositories;
 
-internal class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
+public class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
 {
+  public bool IsCopyRented(string barcode)
+  {
+    return false;
+  }
+
   public void AddPhysicalCopy(PhysicalCopy physicalCopy)
   {
     using IDbConnection connection = CreateConnection();
