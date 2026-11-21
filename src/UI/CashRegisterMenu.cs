@@ -68,6 +68,39 @@ internal class CashRegisterMenu : IMenuOption
     int choice = ConsoleInputReader.ReadIntInRange("Choose customer: ", 1, customersFound.Count);
     //-1 so we get correct index
     Customer customer = customersFound[choice - 1];
+    List<AvailableCopyDto>? availableCopies = _physicalCopyService.FetchAvailableCopies();
+    if (availableCopies == null)
+    {
+      Console.WriteLine("Error: Unable to connect");
+      ConsoleInputReader.WaitForAnyKey();
+      return;
+    }
+    if (availableCopies.Count == 0)
+    {
+      Console.WriteLine("There´s no movies left in stock.");
+      ConsoleInputReader.WaitForAnyKey();
+      return;
+    }
+    List<int> physicalCopyIds = [];
+    while (true)
+    {
+      for (int i = 0; i < availableCopies.Count; i++)
+      {
+        Console.WriteLine($"{i + 1}: {availableCopies[i].Title}");
+      }
+      int pick = ConsoleInputReader.ReadIntInRange(
+        "Choose movie (0 = done): ",
+        0,
+        availableCopies.Count
+      );
+
+      if (pick == 0)
+      {
+        break; //Leave the loop and continue order
+      }
+      physicalCopyIds.Add(availableCopies[pick - 1].Id); // add choise
+      availableCopies.RemoveAt(pick - 1); // remove from list so we cant add twice
+    }
   }
 
   public override string ToString()
