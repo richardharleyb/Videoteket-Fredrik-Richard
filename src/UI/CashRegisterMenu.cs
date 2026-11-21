@@ -101,6 +101,16 @@ internal class CashRegisterMenu : IMenuOption
       physicalCopyIds.Add(availableCopies[pick - 1].Id); // add choise
       availableCopies.RemoveAt(pick - 1); // remove from list so we cant add twice
     }
+    bool saved = _rentalService.CreateRental(customer.Id, physicalCopyIds);
+    if (saved)
+    {
+      Console.WriteLine("New order created.");
+    }
+    else
+    {
+      Console.WriteLine("Error: Order not completed \nPlease try again later. ");
+    }
+    ConsoleInputReader.WaitForAnyKey();
   }
 
   public override string ToString()
