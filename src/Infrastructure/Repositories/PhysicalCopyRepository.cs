@@ -7,6 +7,11 @@ namespace Videoteket.src.Infrastructure.Repositories;
 
 public class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
 {
+  public bool IsCopyRented(string barcode)
+  {
+    return false;
+  }
+
   public void AddPhysicalCopy(PhysicalCopy physicalCopy)
   {
     using IDbConnection connection = CreateConnection();

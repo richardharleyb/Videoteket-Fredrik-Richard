@@ -8,6 +8,11 @@ public class StubPhysicalCopyRepository(List<AvailableCopyDto> availableCopies)
 {
   private readonly List<AvailableCopyDto> _availableCopies = availableCopies;
 
+  public bool IsCopyRented(string barcode)
+  {
+    return true;
+  }
+
   public void AddPhysicalCopy(PhysicalCopy physicalCopy) { }
 
   //Kollar vad som finns på "Lager", det som inte är uthyrt
