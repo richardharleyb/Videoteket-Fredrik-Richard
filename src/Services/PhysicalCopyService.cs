@@ -24,7 +24,7 @@ internal class PhysicalCopyService
     }
   }
 
-  public List<AvailableCopyDto>? FetchAvailableCopys()
+  public List<AvailableCopyDto>? FetchAvailableCopies()
   {
     try
     {
