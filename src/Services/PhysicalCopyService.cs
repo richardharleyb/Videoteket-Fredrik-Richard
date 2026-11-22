@@ -23,4 +23,17 @@ internal class PhysicalCopyService
       return false;
     }
   }
+
+  public List<AvailableCopyDto>? FetchAvailableCopies()
+  {
+    try
+    {
+      List<AvailableCopyDto> copies = _physicalCopyRepository.FetchAvailableCopies();
+      return copies;
+    }
+    catch
+    {
+      return null;
+    }
+  }
 }
