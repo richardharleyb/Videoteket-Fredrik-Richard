@@ -69,14 +69,26 @@ internal static class DatabaseSeeder
             CREATE TABLE RentalItem (
               RentalId  INT NOT NULL,
               PhysicalCopyId INT NOT NULL,
-              Price          DECIMAL(10,2) NOT NULL,
-              ExpectedReturn DATETIME NOT NULL,
+              Price          DECIMAL(10,2) NOT NULL DEFAULT 0,
+              ExpectedReturn DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
               ReturnedAt     DATETIME NULL,
               LateFee        DECIMAL(10,2) NULL,
               PRIMARY KEY (RentalId, PhysicalCopyId),
               FOREIGN KEY (RentalId) REFERENCES Rental(Id),
               FOREIGN KEY (PhysicalCopyId) REFERENCES PhysicalCopy(Id)
             );
+
+             /*
+             CREATE TRIGGER SetRentalItemDefaults
+             BEFORE INSERT ON RentalItem  FOR EACH ROW
+             SET NEW.ExpectedReturn = DATE_ADD(NOW(), INTERVAL 1 DAY),  
+             NEW.Price = (
+             SELECT IF(Movie.IsNew, 49, 29)                     
+             FROM PhysicalCopy
+             JOIN Movie ON Movie.Id = PhysicalCopy.MovieId
+             WHERE PhysicalCopy.Id = NEW.PhysicalCopyId          
+            );
+            */
 
             INSERT INTO Movie (Id, Title, ReleaseDate, IsNew) VALUES
               -- Stora blockbusters (3-6 exemplar)

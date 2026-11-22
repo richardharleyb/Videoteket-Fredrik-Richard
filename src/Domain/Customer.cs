@@ -23,4 +23,6 @@ internal class Customer : Entity
     Email = email;
     Address = address;
   }
+
+  private Customer() { } // for Dapper only: So we can select id
 }

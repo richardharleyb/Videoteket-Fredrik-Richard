@@ -40,7 +40,7 @@ internal class CustomerRepository : BaseRepository, ICustomerRepository
     List<Customer> customers =
     [
       .. connection.Query<Customer>(
-        "SELECT Name, Phonenumber, Email, Address FROM Customer WHERE Customer.Name LIKE @name;",
+        "SELECT Id, Name, Phonenumber, Email, Address FROM Customer WHERE Customer.Name LIKE @name;",
         new { name = $"{name}%" }
       ),
     ];
