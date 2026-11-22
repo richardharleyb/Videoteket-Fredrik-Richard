@@ -38,7 +38,7 @@ internal class RentalRepository : BaseRepository, IRentalRepository
         );
         if (rowsInserted == 0)
         {
-          throw new InvalidOperationException($"Barcode {barcode} not found"); //rollback if barcode inserts wrrong
+          throw new InvalidOperationException($"Barcode {barcode} not found"); //rollback if barcode inserts wrong
         }
       }
 
