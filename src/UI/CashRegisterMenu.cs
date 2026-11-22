@@ -81,7 +81,7 @@ internal class CashRegisterMenu : IMenuOption
       ConsoleInputReader.WaitForAnyKey();
       return;
     }
-    List<int> physicalCopyIds = [];
+    List<string> barcodes = [];
     while (true)
     {
       for (int i = 0; i < availableCopies.Count; i++)
@@ -98,17 +98,17 @@ internal class CashRegisterMenu : IMenuOption
       {
         break; //Leave the loop and continue order
       }
-      physicalCopyIds.Add(availableCopies[pick - 1].Id); // add choise
+      barcodes.Add(availableCopies[pick - 1].Barcode); // add choise
       availableCopies.RemoveAt(pick - 1); // remove from list so we cant add twice
     }
-    bool saved = _rentalService.CreateRental(customer.Id, physicalCopyIds);
-    if (saved)
+    try
     {
+      _rentalService.CreateRental(customer.Id, barcodes);
       Console.WriteLine("New order created.");
     }
-    else
+    catch (Exception exception)
     {
-      Console.WriteLine("Error: Order not completed \nPlease try again later. ");
+      Console.WriteLine($"Error: {exception.Message}");
     }
     ConsoleInputReader.WaitForAnyKey();
   }

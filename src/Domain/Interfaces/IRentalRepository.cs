@@ -2,5 +2,5 @@ namespace Videoteket.src.Domain.Interfaces;
 
 internal interface IRentalRepository
 {
-  void CreateRental(int customerId, List<int> physicalCopyIds);
+  void CreateRental(int customerId, List<string> physicalCopyIds);
 }
