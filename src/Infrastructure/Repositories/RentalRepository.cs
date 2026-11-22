@@ -7,7 +7,7 @@ namespace Videoteket.src.Infrastructure.Repositories;
 
 internal class RentalRepository : BaseRepository, IRentalRepository
 {
-  public void CreateRental(int customerId, List<int> physicalCopyIds)
+  public void CreateRental(int customerId, List<string> barcodes)
   {
     using IDbConnection connection = CreateConnection();
     connection.Open();
@@ -24,11 +24,16 @@ internal class RentalRepository : BaseRepository, IRentalRepository
         "SELECT LAST_INSERT_ID();",
         transaction: transaction
       );
-      foreach (int physicalCopyId in physicalCopyIds)
+      foreach (string barcode in barcodes)
       {
         connection.Execute(
-          "INSERT INTO RentalItem ( RentalId, PhysicalCopyId) VALUES (@RentalId, @PhysicalCopyId)",
-          new { RentalId = rentalId, PhysicalCopyId = physicalCopyId },
+          """
+          INSERT INTO RentalItem ( RentalId, PhysicalCopyId)
+          SELECT @RentalId, Id
+          FROM PhysicalCopy
+          WHERE Barcode=@Barcode;
+          """,
+          new { RentalId = rentalId, Barcode = barcode },
           transaction: transaction
         );
       }

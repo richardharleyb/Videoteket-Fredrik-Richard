@@ -1,4 +1,3 @@
-using Videoteket.src.Domain;
 using Videoteket.src.Domain.Interfaces;
 using Videoteket.src.Infrastructure.Repositories;
 
@@ -12,32 +11,30 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
   public RentalService()
     : this(new PhysicalCopyRepository()) { }
 
-  public void Rent(string barcode)
+  public void CreateRental(int customerId, List<string> barcodes)
   {
-    if (_physicalCopyRepository.IsCopyRented(barcode))
-      throw new InvalidOperationException($"{barcode} is already rented");
-  }
+    if (barcodes.Count == 0)
+    {
+      throw new ArgumentException("The order has to have at least one item");
+    }
 
-  public bool CreateRental(int customerId, List<int> physicalCopyIds)
-  {
-    if (physicalCopyIds.Count == 0)
+    for (int i = 0; i < barcodes.Count; i++)
     {
-      return false;
+      Rent(barcodes[i]);
     }
-    try
-    {
-      _rentalRepository.CreateRental(customerId, physicalCopyIds);
-      return true;
-    }
-    catch (Exception)
-    {
-      return false;
-    }
+
+    _rentalRepository.CreateRental(customerId, barcodes);
   }
 
   public void SetInactive(string barcode)
   {
     if (_physicalCopyRepository.IsCopyRented(barcode))
       throw new InvalidOperationException($"{barcode} cannot be set to inactive when being rented");
+  }
+
+  private void Rent(string barcode)
+  {
+    if (_physicalCopyRepository.IsCopyRented(barcode))
+      throw new InvalidOperationException($"{barcode} is already rented");
   }
 }
