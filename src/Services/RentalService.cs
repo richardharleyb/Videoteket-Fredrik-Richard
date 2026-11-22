@@ -9,7 +9,8 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
   private readonly IPhysicalCopyRepository _physicalCopyRepository = physicalCopyRepository;
   private readonly IRentalRepository _rentalRepository = new RentalRepository();
 
-  public RentalService() : this(new PhysicalCopyRepository()) { }
+  public RentalService()
+    : this(new PhysicalCopyRepository()) { }
 
   public void Rent(string barcode)
   {
