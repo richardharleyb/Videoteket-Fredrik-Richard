@@ -25,6 +25,7 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
 
     _rentalRepository.CreateRental(customerId, barcodes);
   }
+  public void ReturnMovies()
 
   public void SetInactive(string barcode)
   {

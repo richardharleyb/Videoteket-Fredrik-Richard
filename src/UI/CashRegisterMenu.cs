@@ -31,6 +31,7 @@ internal class CashRegisterMenu : IMenuOption
           CreateNewRental();
           break;
         case 2:
+          ReturnMovies();
           break;
         case 3:
           break;
@@ -111,6 +112,11 @@ internal class CashRegisterMenu : IMenuOption
       Console.WriteLine($"Error: {exception.Message}");
     }
     ConsoleInputReader.WaitForAnyKey();
+  }
+
+  private void ReturnMovies()
+  {
+    //Metod
   }
 
   public override string ToString()
