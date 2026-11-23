@@ -87,7 +87,7 @@ internal class CashRegisterMenu : IMenuOption
     {
       for (int i = 0; i < availableCopies.Count; i++)
       {
-        Console.WriteLine($"{i + 1}: {availableCopies[i].Title}");
+        Console.WriteLine($"{i + 1}: {availableCopies[i].Title} - {availableCopies[i].Barcode}");
       }
       int pick = ConsoleInputReader.ReadIntInRange(
         "Choose movie (0 = done): ",
