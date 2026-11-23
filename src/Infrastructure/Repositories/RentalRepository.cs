@@ -46,4 +46,28 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       throw; //Let serviceLayer know the transaction failed
     }
   }
+
+  public List<Receipt> FetchReceipt(int rentalId)
+  {
+    using IDbConnection connection = CreateConnection();
+
+    List<Receipt> receiptRows =
+    [
+      .. connection.Query<Receipt>(
+        """
+        SELECT Rental.Id AS RentalId, Customer.Name AS CustomerName,
+        Rental.RentedAt, Movie.Title, RentalItem.Price, RentalItem.LateFee
+        FROM Rental
+        JOIN Customer ON Customer.Id = Rental.CustomerId
+        JOIN RentalItem ON RentalItem.RentalId = Rental.Id
+        JOIN PhysicalCopy ON PhysicalCopy.Id = RentalItem.PhysicalCopyId
+        JOIN Movie ON Movie.Id = PhysicalCopy.MovieId
+        WHERE Rental.Id = @rentalId;
+        """,
+        new { rentalId }
+      ),
+    ];
+
+    return receiptRows;
+  }
 }
