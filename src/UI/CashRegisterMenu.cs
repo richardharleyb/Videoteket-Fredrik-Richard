@@ -116,7 +116,18 @@ internal class CashRegisterMenu : IMenuOption
 
   private void ReturnMovies()
   {
-    //Metod
+    string barcode = ConsoleInputReader.ReadNonEmptyText("Barcode: ");
+    try
+    {
+      _rentalService.ReturnMovies(barcode);
+
+      Console.WriteLine("Movie returned.");
+    }
+    catch (Exception exception)
+    {
+      Console.WriteLine($"Error: {exception.Message}");
+    }
+    ConsoleInputReader.WaitForAnyKey();
   }
 
   public override string ToString()
