@@ -50,7 +50,6 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       transaction.Rollback(); //Undo if anything fails
       throw; //Let serviceLayer know the transaction failed
     }
-    
   }
 
   public void ReturnMovies(string barcode)
@@ -60,7 +59,9 @@ internal class RentalRepository : BaseRepository, IRentalRepository
     int rowsUpdated = connection.Execute(
       """
       UPDATE RentalItem
-      SET ReturnedAt = NOW()
+      SET ReturnedAt = NOW(),
+      LateFee = IF(DATEDIFF (NOW(), ExpectedReturn) > 0,
+      DATEDIFF(NOW(), ExpectedReturn) * Price, 0)
       WHERE PhysicalCopyId = (
         SELECT Id FROM PhysicalCopy WHERE Barcode = @Barcode)
       AND ReturnedAt IS NULL
