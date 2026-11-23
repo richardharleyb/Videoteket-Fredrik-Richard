@@ -165,6 +165,6 @@ internal class CashRegisterMenu : IMenuOption
     decimal total = rows.Sum(row => row.Price);
     Console.WriteLine($"Total: {total:C}");
     Console.WriteLine("----------------------");
-    Console.WriteLine("Välkommen till onödig text");
+   
   }
 }
