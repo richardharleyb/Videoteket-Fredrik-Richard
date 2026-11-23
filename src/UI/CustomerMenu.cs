@@ -36,6 +36,7 @@ internal class CustomerMenu : IMenuOption
           AddNewCustomer();
           break;
         case 3:
+          EditCustomer();
           break;
         case 4:
           DeleteCustomer();
@@ -93,6 +94,43 @@ internal class CustomerMenu : IMenuOption
         );
       }
     }
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
+  private void EditCustomer()
+  {
+    string searchName = ConsoleInputReader.ReadNonEmptyText("Name: ");
+    List<Customer>? customersFound = _customerService.SearchCustomers(searchName);
+    if (customersFound == null || customersFound.Count == 0)
+    {
+      Console.WriteLine("No customer found");
+      ConsoleInputReader.WaitForAnyKey();
+      return;
+    }
+
+    for (int i = 0; i < customersFound.Count; i++)
+    {
+      Console.WriteLine($"{i + 1}: {customersFound[i].Name} - {customersFound[i].PhoneNumber}");
+    }
+    int choice = ConsoleInputReader.ReadIntInRange("Choose customer: ", 1, customersFound.Count);
+    Customer customer = customersFound[choice - 1];
+
+    string name = ConsoleInputReader.ReadNonEmptyText("New name: ");
+    string phoneNumber = ConsoleInputReader.ReadNonEmptyText("New phonenumber: ");
+    string? email = ConsoleInputReader.ReadOptionalText("New email: ");
+    string address = ConsoleInputReader.ReadNonEmptyText("New address: ");
+
+    bool updated = _customerService.UpdateCustomer(customer.Id, name, phoneNumber, email, address);
+
+    if (updated)
+    {
+      Console.WriteLine("Customer updated");
+    }
+    else
+    {
+      Console.WriteLine("Error:\nNo customer was updated.\nPlease try again later.");
+    }
+
     ConsoleInputReader.WaitForAnyKey();
   }
 
