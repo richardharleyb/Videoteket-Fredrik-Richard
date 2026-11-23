@@ -1,6 +1,6 @@
 namespace Videoteket.src.Domain;
 
-internal class Receipt
+public class Receipt
 {
   public int RentalId { get; set; }
   public string CustomerName { get; set; } = string.Empty;
