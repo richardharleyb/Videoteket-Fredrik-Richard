@@ -7,6 +7,7 @@ internal class MovieMenu : IMenuOption
 {
   private readonly PhysicalCopyService _physicalCopyService = new();
   private readonly MovieService _movieService = new MovieService();
+  private readonly RentalService _rentalService = new RentalService();
 
   public void Run()
   {
@@ -19,7 +20,7 @@ internal class MovieMenu : IMenuOption
       Console.WriteLine("1: View Movies");
       Console.WriteLine("2: Add Physical Copy");
       Console.WriteLine("3: Edit Movie");
-      Console.WriteLine("4: Delete Movie");
+      Console.WriteLine("4: Remove Physical copy");
       Console.WriteLine("5: Back to Main Menu");
 
       int choice = ConsoleInputReader.ReadIntInRange("Choice: ", 1, 5);
@@ -35,6 +36,7 @@ internal class MovieMenu : IMenuOption
         case 3:
           break;
         case 4:
+          RemovePhysicalCopy();
           break;
         case 5:
           running = false;
@@ -61,6 +63,22 @@ internal class MovieMenu : IMenuOption
     else
     {
       Console.WriteLine("Error:\nNo physical copy was saved.\nPlease try again later.");
+    }
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
+  private void RemovePhysicalCopy()
+  {
+    string barcode = ConsoleInputReader.ReadNonEmptyText("Barcode: ");
+
+    try
+    {
+      _rentalService.SetInactive(barcode);
+      Console.WriteLine($"{barcode} removed from stock");
+    }
+    catch (Exception exception)
+    {
+      Console.WriteLine($"Error: {exception.Message}");
     }
     ConsoleInputReader.WaitForAnyKey();
   }

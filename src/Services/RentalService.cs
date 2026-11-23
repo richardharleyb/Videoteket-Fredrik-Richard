@@ -40,6 +40,7 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
   {
     if (_physicalCopyRepository.IsCopyRented(barcode))
       throw new InvalidOperationException($"{barcode} cannot be set to inactive when being rented");
+      _physicalCopyRepository.SetInactive(barcode);
   }
 
   private void Rent(string barcode)
