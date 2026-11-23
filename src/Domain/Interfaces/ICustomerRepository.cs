@@ -5,4 +5,5 @@ internal interface ICustomerRepository
   void AddCustomer(Customer customer);
   public List<Customer> SearchCustomers(string name);
   void DeleteCustomer(string phoneNumber);
+  void UpdateCustomer(int id, Customer customer);
 }

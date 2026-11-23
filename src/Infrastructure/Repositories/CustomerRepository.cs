@@ -33,6 +33,27 @@ internal class CustomerRepository : BaseRepository, ICustomerRepository
     );
   }
 
+  public void UpdateCustomer(int id, Customer customer)
+  {
+    using IDbConnection connection = CreateConnection();
+
+    connection.Execute(
+      """
+      UPDATE Customer
+      SET Name = @Name, PhoneNumber = @PhoneNumber, Email = @Email, Address = @Address
+      WHERE Id = @Id;
+      """,
+      new
+      {
+        Id = id,
+        customer.Name,
+        customer.PhoneNumber,
+        customer.Email,
+        customer.Address,
+      }
+    );
+  }
+
   public List<Customer> SearchCustomers(string name)
   {
     using IDbConnection connection = CreateConnection();
