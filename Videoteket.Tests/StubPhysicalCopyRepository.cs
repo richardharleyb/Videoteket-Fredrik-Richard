@@ -24,5 +24,5 @@ public class StubPhysicalCopyRepository(
     return _availableCopies;
   }
 
-  public void SetInactive(string barcode) {}
+  public void SetInactive(string barcode) { }
 }

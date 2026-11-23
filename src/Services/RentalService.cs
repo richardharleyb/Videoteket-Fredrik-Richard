@@ -1,6 +1,6 @@
+using Videoteket.src.Domain;
 using Videoteket.src.Domain.Interfaces;
 using Videoteket.src.Infrastructure.Repositories;
-using Videoteket.src.Domain;
 
 namespace Videoteket.src.Services;
 
@@ -58,5 +58,4 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
     }
     return _rentalRepository.FetchReceipt(rentalId);
   }
-  
 }

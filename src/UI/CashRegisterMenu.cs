@@ -1,4 +1,3 @@
-
 using Videoteket.src.Domain;
 using Videoteket.src.Services;
 
@@ -145,8 +144,6 @@ internal class CashRegisterMenu : IMenuOption
     {
       Console.WriteLine("No receipt found");
       return;
-
-
     }
     Receipt first = rows[0];
     Console.WriteLine("Videohallen");
@@ -165,6 +162,5 @@ internal class CashRegisterMenu : IMenuOption
     decimal total = rows.Sum(row => row.Price);
     Console.WriteLine($"Total: {total:C}");
     Console.WriteLine("----------------------");
-   
   }
 }

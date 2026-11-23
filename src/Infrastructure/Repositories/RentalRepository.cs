@@ -50,7 +50,6 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       transaction.Rollback(); //Undo if anything fails
       throw; //Let serviceLayer know the transaction failed
     }
-    
   }
 
   public void ReturnMovies(string barcode)
