@@ -6,6 +6,7 @@ namespace Videoteket.src.UI;
 internal class MovieMenu : IMenuOption
 {
   private readonly PhysicalCopyService _physicalCopyService = new();
+  private readonly MovieService _movieService = new MovieService();
 
   public void Run()
   {
@@ -26,6 +27,7 @@ internal class MovieMenu : IMenuOption
       switch (choice)
       {
         case 1:
+          ViewMovies();
           break;
         case 2:
           AddNewPhysicalCopy();
@@ -59,6 +61,24 @@ internal class MovieMenu : IMenuOption
     else
     {
       Console.WriteLine("Error:\nNo physical copy was saved.\nPlease try again later.");
+    }
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
+  private void ViewMovies()
+  {
+    try
+    {
+      List<Movie> movies = _movieService.FetchAllMovies();
+      foreach (Movie movie in movies)
+      {
+        string price = movie.IsNew ? "49kr" : "29kr";
+        Console.WriteLine($"{movie.Title} - {price}");
+      }
+    }
+    catch (Exception exception)
+    {
+      Console.WriteLine($"Error: {exception.Message}");
     }
     ConsoleInputReader.WaitForAnyKey();
   }
