@@ -25,7 +25,15 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
 
     _rentalRepository.CreateRental(customerId, barcodes);
   }
-  public void ReturnMovies()
+
+  public void ReturnMovies(string barcode)
+  {
+    if (string.IsNullOrWhiteSpace(barcode))
+    {
+      throw new ArgumentException("Barcode cannot be empty");
+    }
+    _rentalRepository.ReturnMovies(barcode);
+  }
 
   public void SetInactive(string barcode)
   {
