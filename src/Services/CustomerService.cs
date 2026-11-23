@@ -35,6 +35,20 @@ internal class CustomerService
     }
   }
 
+  public bool UpdateCustomer(int id, string name, string phoneNumber, string? email, string address)
+  {
+    try
+    {
+      Customer customer = new Customer(name, phoneNumber, email, address);
+      _customerRepository.UpdateCustomer(id, customer);
+      return true;
+    }
+    catch (Exception)
+    {
+      return false;
+    }
+  }
+
   public bool DeleteCustomer(string phoneNumber)
   {
     try
