@@ -52,7 +52,7 @@ internal class RentalRepository : BaseRepository, IRentalRepository
     }
   }
 
-  public void ReturnMovies(string barcode)
+  public decimal ReturnMovies(string barcode)
   {
     using IDbConnection connection = CreateConnection();
 
@@ -60,7 +60,7 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       """
       UPDATE RentalItem
       SET ReturnedAt = NOW(),
-      LateFee = IF(DATEDIFF (NOW(), ExpectedReturn) > 0,
+      LateFee = IF(DATEDIFF(NOW(), ExpectedReturn) > 0,
       DATEDIFF(NOW(), ExpectedReturn) * Price, 0)
       WHERE PhysicalCopyId = (
         SELECT Id FROM PhysicalCopy WHERE Barcode = @Barcode)
@@ -74,7 +74,17 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       throw new InvalidOperationException(
         $"Unable to update moviestatus. Check {barcode} and try again"
       );
-    }
+    } //select latefee form newest return
+    decimal lateFee = connection.QuerySingle<decimal>(
+      """
+      SELECT LateFee FROM RentalItem
+      WHERE PhysicalCopyId = (SELECT Id FROM PhysicalCopy WHERE Barcode = @Barcode)
+      ORDER BY ReturnedAt DESC
+      LIMIT 1;
+      """,
+      new { Barcode = barcode }
+    );
+    return lateFee;
   }
 
   public List<Receipt> FetchReceipt(int rentalId)

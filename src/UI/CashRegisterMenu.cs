@@ -1,4 +1,3 @@
-
 using Videoteket.src.Domain;
 using Videoteket.src.Services;
 
@@ -121,14 +120,15 @@ internal class CashRegisterMenu : IMenuOption
     string barcode = ConsoleInputReader.ReadNonEmptyText("Barcode: ");
     try
     {
-      _rentalService.ReturnMovies(barcode);
+      decimal lateFee = _rentalService.ReturnMovies(barcode);
 
-      Console.WriteLine("Movie returned.");
+      Console.WriteLine($"Movie returned. Late fee: {lateFee:C}");
     }
     catch (Exception exception)
     {
       Console.WriteLine($"Error: {exception.Message}");
     }
+
     ConsoleInputReader.WaitForAnyKey();
   }
 
@@ -145,8 +145,6 @@ internal class CashRegisterMenu : IMenuOption
     {
       Console.WriteLine("No receipt found");
       return;
-
-
     }
     Receipt first = rows[0];
     Console.WriteLine("Videohallen");
@@ -165,6 +163,5 @@ internal class CashRegisterMenu : IMenuOption
     decimal total = rows.Sum(row => row.Price);
     Console.WriteLine($"Total: {total:C}");
     Console.WriteLine("----------------------");
-   
   }
 }
