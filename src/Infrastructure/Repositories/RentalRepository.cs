@@ -26,7 +26,7 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       );
       foreach (string barcode in barcodes)
       {
-        connection.Execute(
+        int rowsInserted = connection.Execute(
           """
           INSERT INTO RentalItem ( RentalId, PhysicalCopyId)
           SELECT @RentalId, Id
@@ -36,6 +36,10 @@ internal class RentalRepository : BaseRepository, IRentalRepository
           new { RentalId = rentalId, Barcode = barcode },
           transaction: transaction
         );
+        if (rowsInserted == 0)
+        {
+          throw new InvalidOperationException($"Barcode {barcode} not found"); //rollback if barcode inserts wrong
+        }
       }
 
       transaction.Commit();
