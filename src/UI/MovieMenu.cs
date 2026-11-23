@@ -20,7 +20,7 @@ internal class MovieMenu : IMenuOption
       Console.WriteLine("1: View Movies");
       Console.WriteLine("2: Add Physical Copy");
       Console.WriteLine("3: Edit Movie");
-      Console.WriteLine("4: Remove Physical copy");
+      Console.WriteLine("4: Remove Physical Copy");
       Console.WriteLine("5: Back to Main Menu");
 
       int choice = ConsoleInputReader.ReadIntInRange("Choice: ", 1, 5);
