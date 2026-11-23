@@ -1,5 +1,6 @@
 using Videoteket.src.Domain.Interfaces;
 using Videoteket.src.Infrastructure.Repositories;
+using Videoteket.src.Domain;
 
 namespace Videoteket.src.Services;
 
@@ -11,7 +12,7 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
   public RentalService()
     : this(new PhysicalCopyRepository()) { }
 
-  public void CreateRental(int customerId, List<string> barcodes)
+  public int CreateRental(int customerId, List<string> barcodes)
   {
     if (barcodes.Count == 0)
     {
@@ -23,7 +24,7 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
       Rent(barcodes[i]);
     }
 
-    _rentalRepository.CreateRental(customerId, barcodes);
+    return _rentalRepository.CreateRental(customerId, barcodes);
   }
 
   public void ReturnMovies(string barcode)
@@ -46,4 +47,14 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
     if (_physicalCopyRepository.IsCopyRented(barcode))
       throw new InvalidOperationException($"{barcode} is already rented");
   }
+
+  public List<Receipt> FetchReceipt(int rentalId)
+  {
+    if (rentalId <= 0)
+    {
+      throw new ArgumentException("RentalId must be greater than 0");
+    }
+    return _rentalRepository.FetchReceipt(rentalId);
+  }
+  
 }

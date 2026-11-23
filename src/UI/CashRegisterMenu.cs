@@ -1,3 +1,4 @@
+
 using Videoteket.src.Domain;
 using Videoteket.src.Services;
 
@@ -104,8 +105,9 @@ internal class CashRegisterMenu : IMenuOption
     }
     try
     {
-      _rentalService.CreateRental(customer.Id, barcodes);
-      Console.WriteLine("New order created.");
+      int rentalId = _rentalService.CreateRental(customer.Id, barcodes);
+      Console.WriteLine($"New order created. Order number {rentalId}");
+      PrintReceipt(rentalId);
     }
     catch (Exception exception)
     {
@@ -133,5 +135,36 @@ internal class CashRegisterMenu : IMenuOption
   public override string ToString()
   {
     return "Cash Register Menu";
+  }
+
+  private void PrintReceipt(int rentalId)
+  {
+    List<Receipt> rows = _rentalService.FetchReceipt(rentalId);
+
+    if (rows.Count == 0)
+    {
+      Console.WriteLine("No receipt found");
+      return;
+
+
+    }
+    Receipt first = rows[0];
+    Console.WriteLine("Videohallen");
+    Console.WriteLine("----------------------");
+    Console.WriteLine("Receipt");
+    Console.WriteLine($"Order: {first.RentalId}");
+    Console.WriteLine($"Customer: {first.CustomerName}");
+    Console.WriteLine($"Date: {first.RentedAt:yyyy-MM-dd HH:mm}");
+    Console.WriteLine("----------------------");
+
+    foreach (Receipt row in rows)
+    {
+      Console.WriteLine($"{row.Title} {row.Price:C}");
+    }
+
+    decimal total = rows.Sum(row => row.Price);
+    Console.WriteLine($"Total: {total:C}");
+    Console.WriteLine("----------------------");
+    Console.WriteLine("Välkommen till onödig text");
   }
 }

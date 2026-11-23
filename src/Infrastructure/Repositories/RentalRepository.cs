@@ -7,7 +7,7 @@ namespace Videoteket.src.Infrastructure.Repositories;
 
 internal class RentalRepository : BaseRepository, IRentalRepository
 {
-  public void CreateRental(int customerId, List<string> barcodes)
+  public int CreateRental(int customerId, List<string> barcodes)
   {
     using IDbConnection connection = CreateConnection();
     connection.Open();
@@ -43,12 +43,14 @@ internal class RentalRepository : BaseRepository, IRentalRepository
       }
 
       transaction.Commit();
+      return rentalId;
     }
     catch
     {
       transaction.Rollback(); //Undo if anything fails
       throw; //Let serviceLayer know the transaction failed
     }
+    
   }
 
   public void ReturnMovies(string barcode)
