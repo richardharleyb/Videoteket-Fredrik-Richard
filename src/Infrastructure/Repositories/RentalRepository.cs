@@ -51,6 +51,29 @@ internal class RentalRepository : BaseRepository, IRentalRepository
     }
   }
 
+  public void ReturnMovies(string barcode)
+  {
+    using IDbConnection connection = CreateConnection();
+
+    int rowsUpdated = connection.Execute(
+      """
+      UPDATE RentalItem
+      SET ReturnedAt = NOW()
+      WHERE PhysicalCopyId = (
+        SELECT Id FROM PhysicalCopy WHERE Barcode = @Barcode)
+      AND ReturnedAt IS NULL
+      """,
+      new { Barcode = barcode }
+    );
+
+    if (rowsUpdated == 0)
+    {
+      throw new InvalidOperationException(
+        $"Unable to update moviestatus. Check {barcode} and try again"
+      );
+    }
+  }
+
   public List<Receipt> FetchReceipt(int rentalId)
   {
     using IDbConnection connection = CreateConnection();

@@ -31,6 +31,7 @@ internal class CashRegisterMenu : IMenuOption
           CreateNewRental();
           break;
         case 2:
+          ReturnMovies();
           break;
         case 3:
           break;
@@ -105,6 +106,22 @@ internal class CashRegisterMenu : IMenuOption
     {
       _rentalService.CreateRental(customer.Id, barcodes);
       Console.WriteLine("New order created.");
+    }
+    catch (Exception exception)
+    {
+      Console.WriteLine($"Error: {exception.Message}");
+    }
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
+  private void ReturnMovies()
+  {
+    string barcode = ConsoleInputReader.ReadNonEmptyText("Barcode: ");
+    try
+    {
+      _rentalService.ReturnMovies(barcode);
+
+      Console.WriteLine("Movie returned.");
     }
     catch (Exception exception)
     {
