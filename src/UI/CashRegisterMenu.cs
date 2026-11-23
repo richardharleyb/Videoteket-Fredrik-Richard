@@ -1,4 +1,3 @@
-
 using Videoteket.src.Domain;
 using Videoteket.src.Services;
 
@@ -35,6 +34,7 @@ internal class CashRegisterMenu : IMenuOption
           ReturnMovies();
           break;
         case 3:
+          ViewAvailableCopies();
           break;
         case 4:
           break;
@@ -132,6 +132,30 @@ internal class CashRegisterMenu : IMenuOption
     ConsoleInputReader.WaitForAnyKey();
   }
 
+  private void ViewAvailableCopies()
+  {
+    List<AvailableCopyDto>? availableCopies = _physicalCopyService.FetchAvailableCopies();
+    if (availableCopies == null)
+    {
+      Console.WriteLine("Error: Unable to connect, try again later");
+      ConsoleInputReader.WaitForAnyKey();
+      return; //Leave the method and let user try again
+    }
+    if (availableCopies.Count == 0)
+    {
+      Console.WriteLine("No movies available");
+      ConsoleInputReader.WaitForAnyKey();
+      return; // leave and let user know theres no movies left to rent
+    }
+
+    for (int i = 0; i < availableCopies.Count; i++)
+    {
+      // +1 to not list movies as 0
+      Console.WriteLine($"{i + 1}: {availableCopies[i].Title} - {availableCopies[i].Barcode}");
+    }
+    ConsoleInputReader.WaitForAnyKey();
+  }
+
   public override string ToString()
   {
     return "Cash Register Menu";
@@ -145,8 +169,6 @@ internal class CashRegisterMenu : IMenuOption
     {
       Console.WriteLine("No receipt found");
       return;
-
-
     }
     Receipt first = rows[0];
     Console.WriteLine("Videohallen");
@@ -165,6 +187,5 @@ internal class CashRegisterMenu : IMenuOption
     decimal total = rows.Sum(row => row.Price);
     Console.WriteLine($"Total: {total:C}");
     Console.WriteLine("----------------------");
-   
   }
 }
