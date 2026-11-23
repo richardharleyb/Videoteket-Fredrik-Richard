@@ -1,6 +1,6 @@
+using Videoteket.src.Domain;
 using Videoteket.src.Domain.Interfaces;
 using Videoteket.src.Infrastructure.Repositories;
-using Videoteket.src.Domain;
 
 namespace Videoteket.src.Services;
 
@@ -27,13 +27,13 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
     return _rentalRepository.CreateRental(customerId, barcodes);
   }
 
-  public void ReturnMovies(string barcode)
+  public decimal ReturnMovies(string barcode)
   {
     if (string.IsNullOrWhiteSpace(barcode))
     {
       throw new ArgumentException("Barcode cannot be empty");
     }
-    _rentalRepository.ReturnMovies(barcode);
+    return _rentalRepository.ReturnMovies(barcode);
   }
 
   public void SetInactive(string barcode)
@@ -56,5 +56,4 @@ public class RentalService(IPhysicalCopyRepository physicalCopyRepository)
     }
     return _rentalRepository.FetchReceipt(rentalId);
   }
-  
 }
