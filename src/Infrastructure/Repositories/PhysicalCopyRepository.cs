@@ -50,19 +50,19 @@ public class PhysicalCopyRepository : BaseRepository, IPhysicalCopyRepository
 
     return availableCopies;
   }
-  
+
   public void SetInactive(string barcode)
   {
     using IDbConnection connection = CreateConnection();
 
-    int rowsUpdated = connection.Execute("UPDATE PhysicalCopy SET IsActive = false WHERE Barcode = @Barcode;",
-    new {Barcode = barcode});
+    int rowsUpdated = connection.Execute(
+      "UPDATE PhysicalCopy SET IsActive = false WHERE Barcode = @Barcode;",
+      new { Barcode = barcode }
+    );
 
     if (rowsUpdated == 0)
     {
       throw new InvalidOperationException($"Barcode {barcode} not found");
     }
   }
-
-
 }

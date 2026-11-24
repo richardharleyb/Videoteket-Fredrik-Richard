@@ -49,8 +49,8 @@ internal class MovieMenu : IMenuOption
   {
     string barcode = ConsoleInputReader.ReadNonEmptyText("Barcode ");
     bool isActive = ConsoleInputReader.ReadYesOrNo("IsActive ");
-    //TODO: hämta totalt antal filmer och lägg in istället för hårdkodat 1,10
-    int movieId = ConsoleInputReader.ReadIntInRange("MovieId, ", 1, 10);
+    List<Movie> movies = _movieService.FetchAllMovies();
+    int movieId = ConsoleInputReader.ReadIntInRange("MovieId: ", 1, movies.Count);
 
     PhysicalCopy physicalCopy = new(barcode, isActive, movieId);
 
